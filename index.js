@@ -5,7 +5,27 @@ const port =
 
 const app = express();
 
-app.engine('hbs', hbs({ defaultLayout: 'main.hbs' }));
+app.engine(
+  'hbs',
+  hbs({
+    defaultLayout: 'main.hbs',
+    helpers: {
+      // Function to do basic mathematical operation in handlebar
+      math: function (lvalue, operator, rvalue) {
+        lvalue = parseFloat(lvalue);
+        rvalue = parseFloat(rvalue);
+        return {
+          '+': lvalue + rvalue,
+          '-': lvalue - rvalue,
+          '*': lvalue * rvalue,
+          '/': lvalue / rvalue,
+          '%': lvalue % rvalue,
+        }[operator];
+      },
+    },
+  })
+);
+
 app.set('view engine', 'hbs');
 app.set('views', __dirname + '/views');
 
