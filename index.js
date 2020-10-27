@@ -1,0 +1,35 @@
+const express = require('express');
+const hbs = require('express-handlebars');
+const port =
+  parseInt(process.argv[2]) || parseInt(process.env.APP_PORT) || 4000;
+
+const app = express();
+
+app.engine('hbs', hbs({ defaultLayout: 'main.hbs' }));
+app.set('view engine', 'hbs');
+app.set('views', __dirname + '/views');
+
+function randomDice() {
+  return Math.floor(Math.random() * 6 + 1);
+}
+app.get('/images/:name', (req, res) => {
+  res.sendFile(__dirname + '/images/' + req.params.name);
+});
+
+app.get('/roll', (req, res) => {
+  res.status(200);
+  res.type('text/html');
+  res.render('roll', { seed1: randomDice(), seed2: randomDice() });
+});
+
+app.get('/', (req, res) => {
+  res.status(200);
+  res.type('text/html');
+  res.render('landing');
+});
+
+app.use((req, res) => {
+  res.redirect('/');
+});
+
+app.listen(port, () => console.log(`Running on http://localhost:${port}`));

@@ -1,0 +1,21 @@
+body {
+  text-align: center;
+  justify-content: center;
+  margin: 3rem;
+}
+
+img {
+  width: 200px;
+  display: inline-block;
+}
+
+a {
+  display: inline-block;
+  font-size: 1.2rem;
+  text-decoration: none;
+  background-color: green;
+  color: #fff;
+  border-radius: 5px;
+  padding: 0.2rem;
+  margin-top: 1.5rem;
+}
