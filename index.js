@@ -32,6 +32,9 @@ app.set('views', __dirname + '/views');
 function randomDice() {
   return Math.floor(Math.random() * 6 + 1);
 }
+
+app.use(express.static('public/css'));
+
 app.get('/images/:name', (req, res) => {
   res.sendFile(__dirname + '/images/' + req.params.name);
 });
@@ -39,7 +42,10 @@ app.get('/images/:name', (req, res) => {
 app.get('/roll', (req, res) => {
   res.status(200);
   res.type('text/html');
-  res.render('roll', { seed1: randomDice(), seed2: randomDice() });
+  res.render('roll', {
+    seed1: randomDice(),
+    seed2: randomDice(),
+  });
 });
 
 app.get('/', (req, res) => {
